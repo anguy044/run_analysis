@@ -7,7 +7,7 @@
 library(data.table)
 
 ## setting working directory, used for my personal testing. 
-setwd("C:/Users/Andrew/Desktop/DataScience/Getting and Cleaning Data/Peer Assignment 1")
+## setwd("C:/Users/Andrew/Desktop/DataScience/Getting and Cleaning Data/Peer Assignment 1")
 
 
 ## Part 1:
@@ -43,7 +43,7 @@ XY <- rbind(X,Y)
 
 ## Part 2:
 ## Extracts only the measurements on the mean and standard deviation for each measurement.
-features <- read.table("./UCI_HAR_Dataset/features.txt",header=FALSE, colClasses="character")
+features <- read.table("./UCI_HAR_Dataset/features.txt",header=FALSE)
 meansd <- grep("-mean\\(\\)|-std\\(\\)", features[,2])
 
 ## Creating subset that contains mean and sd
@@ -60,7 +60,7 @@ names(X) <- tolower(names(X))
 
 ## Part 3:
 ## Uses descriptive activity names to name the activities in the data set
-activities <- read.table("./UCI_HAR_Dataset/activity_labels.txt",header=FALSE,colClasses="character")
+activities <- read.table("./UCI_HAR_Dataset/activity_labels.txt",header=FALSE)
 activities[,2] = gsub("_", "", tolower(as.character(activities[,2])))
 Y[,1] = activities[Y[,1],2]
 names(Y) <- "Activity"
@@ -72,12 +72,13 @@ names(Y) <- "Activity"
 
 ## Part 4:
 ## Appropriately labels the data set with descriptive activity names. 
-features <- read.table("./UCI_HAR_Dataset/features.txt",header=FALSE,colClasses="character")
+features <- read.table("./UCI_HAR_Dataset/features.txt",header=FALSE)
 colnames(testX)<-features$V2
-colnames(trainX)<-features$V2
 colnames(testY)<-c("Activity")
-colnames(trainY)<-c("Activity")
 colnames(testSub)<-c("Subject")
+
+colnames(trainX)<-features$V2
+colnames(trainY)<-c("Activity")
 colnames(trainSub)<-c("Subject")
 
 ## re-combining all data with all appropriate labels. 
