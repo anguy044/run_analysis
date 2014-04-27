@@ -99,7 +99,7 @@ dataSet <- rbind(newX, newY)
 
 table <- data.table(dataSet)
 tidyData <- table[,lapply(.SD,mean),by="Activity,Subject"]
-
+write.table(tidyData, "tidy_data.txt")
 
 
 
